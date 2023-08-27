@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -27,10 +26,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Grocery extends Model
+class Grocery extends BaseModel
 {
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'name',
+    ];
 }

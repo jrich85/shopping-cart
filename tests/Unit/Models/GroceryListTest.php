@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Models;
 
 use App\Models\GroceryList;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class GroceryListTest extends TestCase
