@@ -34,6 +34,7 @@ class GroceryItemRepositoryTest extends TestCase
     public function can_get_all_items_for_a_list(): void
     {
         $list = GroceryList::factory()->create(['name' => 'Uniforms']);
+        Grocery::factory(count:5)->create();
         $items = Grocery::factory(count: 4)->state(new Sequence(
             ['name' => 'Sweater'],
             ['name' => 'Socks'],
@@ -45,6 +46,7 @@ class GroceryItemRepositoryTest extends TestCase
 
         $listItems = $this->repository->getAll($list->id);
 
+        static::assertCount(4, $listItems);
         foreach ($listItems as $item) {
             static::assertContains($item->name, $itemNames);
         }

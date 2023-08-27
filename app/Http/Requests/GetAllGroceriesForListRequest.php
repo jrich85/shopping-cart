@@ -3,15 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
- * AddGroceryToListRequest
+ * GetAllGroceriesForListRequest
  *
- * @property string $name
  * @property string $groceryListId
  */
-class AddGroceryToListRequest extends FormRequest
+class GetAllGroceriesForListRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -26,12 +24,8 @@ class AddGroceryToListRequest extends FormRequest
         $this->merge(['groceryListId' => $listId]);
 
         return [
-            'name' => [
-                'bail',
-                'required',
-                Rule::unique('groceries', 'name')->where('grocery_list_id', $listId),
-            ],
             'groceryListId' => 'exists:grocery_lists,id',
         ];
+
     }
 }

@@ -24,7 +24,8 @@ class GroceryItemRepository implements GroceryItemRepositoryContract
     /** @inheritDoc */
     public function getAll(string $groceryListId, bool $withTrashed = false): Collection
     {
-        $query = $this->model->newQuery();
+        $query = $this->model->newQuery()
+            ->where('grocery_list_id', $groceryListId);
 
         if ($withTrashed) {
             $query->withTrashed();

@@ -44,7 +44,7 @@ class GroceryListControllerTest extends TestCase
     /** @test */
     public function get_is_unprocessable_if_route_id_is_not_found(): void
     {
-        $this->postJson(route('grocery-list.get', Str::uuid()))
+        $this->getJson(route('grocery-list.get', Str::uuid()))
             ->assertUnprocessable()
             ->assertJsonValidationErrorFor('id');
     }
@@ -52,7 +52,7 @@ class GroceryListControllerTest extends TestCase
     /** @test */
     public function get_is_unprocessable_if_route_id_is_not_a_uuid(): void
     {
-        $this->postJson(route('grocery-list.get', Str::random()))
+        $this->getJson(route('grocery-list.get', Str::random()))
             ->assertUnprocessable()
             ->assertJsonValidationErrorFor('id');
     }
