@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property-read \App\Models\GroceryList $groceryList
  * @method static \Database\Factories\GroceryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery newQuery()
@@ -24,6 +26,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Grocery onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Grocery withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Grocery withoutTrashed()
  * @mixin \Eloquent
  */
 class Grocery extends BaseModel
@@ -34,4 +39,9 @@ class Grocery extends BaseModel
     protected $fillable = [
         'name',
     ];
+
+    public function groceryList(): BelongsTo
+    {
+        return $this->belongsTo(GroceryList::class);
+    }
 }
