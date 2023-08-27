@@ -25,10 +25,9 @@ class GroceryListController extends Controller
 
     public function update(UpdateGroceryListRequest $request)
     {
-        $newList = $this->groceryListRepository->update($request->id, $request->name);
+        $updatedList = $this->groceryListRepository->update($request->id, $request->name);
 
-        return response()->json([$newList->toJson()], Response::HTTP_OK);
-
+        return response()->json([$updatedList->toJson()], Response::HTTP_OK);
     }
 
     public function get(GetGroceryListRequest $request)

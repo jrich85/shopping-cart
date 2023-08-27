@@ -22,6 +22,21 @@ class GroceryItemRepository implements GroceryItemRepositoryContract
     }
 
     /** @inheritDoc */
+    public function update(string $groceryListId, string $id, string $name): Grocery
+    {
+        $grocery = $this->model->newModelQuery()
+            ->where('id', $id)
+            ->where('grocery_list_id', $groceryListId)
+            ->firstOrFail();
+
+        $grocery->update([
+            'name' => $name,
+        ]);
+
+        return $grocery;
+    }
+
+    /** @inheritDoc */
     public function getAll(string $groceryListId, bool $withTrashed = false): Collection
     {
         $query = $this->model->newQuery()

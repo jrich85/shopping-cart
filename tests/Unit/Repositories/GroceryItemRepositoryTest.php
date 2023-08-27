@@ -6,6 +6,7 @@ use App\Models\Grocery;
 use App\Models\GroceryList;
 use App\Repositories\Contracts\GroceryItemRepositoryContract;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -30,6 +31,31 @@ class GroceryItemRepositoryTest extends TestCase
 
         static::assertModelExists($item);
         static::assertSame('Sweater', $item->fresh()->name);
+    }
+
+    /** @test */
+    public function can_update_a_grocery_list_items_name(): void
+    {
+        $list = GroceryList::factory()->create(['name' => 'Uniforms']);
+        $grocery = Grocery::factory()->create(['grocery_list_id' => $list->id]);
+
+        $name = 'New name';
+
+        $this->repository->update(groceryListId: $list->id, id: $grocery->id, name: $name);
+
+        static::assertSame($name, $grocery->fresh()->name);
+    }
+
+    /** @test */
+    public function item_must_be_in_list_to_be_updated(): void
+    {
+        $list = GroceryList::factory()->create(['name' => 'Uniforms']);
+        $grocery = Grocery::factory()->create(['grocery_list_id' => $list->id]);
+
+        $name = 'New name';
+
+        $this->expectException(ModelNotFoundException::class);
+        $this->repository->update(groceryListId: Str::uuid(), id: $grocery->id, name: $name);
     }
 
     /** @test */

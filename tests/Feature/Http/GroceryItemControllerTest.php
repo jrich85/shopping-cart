@@ -60,6 +60,53 @@ class GroceryItemControllerTest extends TestCase
 
     // endregion create
 
+    // region update
+
+    /** @test */
+    public function can_update_an_item_in_a_grocery_list(): void
+    {
+        $list = GroceryList::factory()->create();
+        $item = Grocery::factory()->create(['grocery_list_id' => $list->id]);
+
+        $this->patchJson(route('grocery-list.item.update', [$list->id, $item->id]), ['name' => $newName = 'new name'])
+            ->assertOk()
+            ->assertSeeText($newName);
+
+        static::assertSame($newName, $item->fresh()->name);
+    }
+
+    /** @test */
+    public function must_be_in_the_list_to_be_updated(): void
+    {
+        $list = GroceryList::factory()->create();
+        $item = Grocery::factory()->create(['grocery_list_id' => $list->id]);
+
+        $this->patchJson(route('grocery-list.item.update', [Str::uuid(), $item->id]), ['name' => $newName = 'new name'])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrorFor('listId')
+            ->assertJsonValidationErrorFor('id');
+
+        static::assertNotSame($newName, $item->fresh()->name);
+    }
+
+    /** @test */
+    public function must_be_unique_in_the_list(): void
+    {
+        $name = 'some name';
+        Grocery::factory()->create(['name' => $name]);
+
+        $list = GroceryList::factory()->create();
+        $item = Grocery::factory()->create(['grocery_list_id' => $list->id, 'name' => $name]);
+        $item2 = Grocery::factory()->create(['grocery_list_id' => $list->id]);
+
+        $this->patchJson(route('grocery-list.item.update', [$list->id, $item->id]), ['name' => $name])
+            ->assertOk();
+        $this->patchJson(route('grocery-list.item.update', [$list->id, $item2->id]), ['name' => $name])
+            ->assertUnprocessable();
+    }
+
+    // endregion update */
+
     // region getAll
 
     /** @test */

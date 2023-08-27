@@ -17,6 +17,16 @@ interface GroceryItemRepositoryContract
     public function create(string $name, string $groceryListId): Grocery;
 
     /**
+     * Updates the grocery list item's name with the new name
+     *
+     * @param string $groceryListId
+     * @param string $id
+     * @param string $name
+     * @return Grocery
+     */
+    public function update(string $groceryListId, string $id, string $name): Grocery;
+
+    /**
      * Gets all grocery items for a list.
      *
      * @param string $groceryListId
