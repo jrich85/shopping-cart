@@ -29,7 +29,7 @@ class CreateGroceryListRequest extends FormRequest
     {
         return [
             'name' => [
-                'unique' => 'A list already exists with that name.',
+                'unique' => 'A list already exists with this name.',
             ]
         ];
     }

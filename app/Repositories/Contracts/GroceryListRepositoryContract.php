@@ -3,6 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\GroceryList;
+use Illuminate\Support\Collection;
 
 interface GroceryListRepositoryContract
 {
@@ -21,4 +22,5 @@ interface GroceryListRepositoryContract
      * @return GroceryList|null
      */
     public function find(string $id): ?GroceryList;
+
 }
