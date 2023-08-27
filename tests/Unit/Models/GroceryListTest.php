@@ -24,4 +24,13 @@ class GroceryListTest extends TestCase
         $groceryList = GroceryList::factory()->create();
         static::assertModelExists($groceryList);
     }
+
+    /** @test */
+    public function deleted_factory_state_creates_a_trashed_model(): void
+    {
+        $groceryList = GroceryList::factory()->deleted()->create();
+
+        static::assertModelExists($groceryList);
+        static::assertSoftDeleted($groceryList);
+    }
 }

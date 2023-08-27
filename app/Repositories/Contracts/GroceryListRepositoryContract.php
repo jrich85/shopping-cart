@@ -3,7 +3,7 @@
 namespace App\Repositories\Contracts;
 
 use App\Models\GroceryList;
-use Illuminate\Support\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 
 interface GroceryListRepositoryContract
 {
@@ -22,5 +22,13 @@ interface GroceryListRepositoryContract
      * @return GroceryList|null
      */
     public function find(string $id): ?GroceryList;
+
+    /**
+     * Get a paginated list of all the grocery lists. Optionally include trashed models.
+     *
+     * @param bool $withTrashed
+     * @return Paginator
+     */
+    public function getAll(bool $withTrashed=false): Paginator;
 
 }

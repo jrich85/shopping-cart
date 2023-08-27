@@ -20,4 +20,13 @@ class GroceryListFactory extends Factory
             'name' => $this->faker->words(asText: true),
         ];
     }
+
+    public function deleted(): self
+    {
+        return $this->state([
+            'created_at' => now()->subHours(3),
+            'updated_at' => now()->subMinutes(45),
+            'deleted_at' => now()->subMinute(),
+        ]);
+    }
 }

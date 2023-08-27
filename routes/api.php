@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('grocery-list')->group(function () {
+    Route::get('/', [GroceryListController::class, 'getAll'])->name('grocery-list.get-all');
     Route::post('/', [GroceryListController::class, 'create'])->name('grocery-list.create');
     Route::post('/{id}', [GroceryListController::class, 'get'])->name('grocery-list.get');
 });
