@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Requests\GetGroceryListRequest;
 use App\Http\Requests\CreateGroceryListRequest;
+use App\Http\Requests\GetGroceryListRequest;
 use App\Http\Requests\GetPaginatedListRequest;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
 use Illuminate\Http\Response;

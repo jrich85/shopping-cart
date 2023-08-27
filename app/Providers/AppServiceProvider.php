@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\GroceryItemRepositoryContract;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
+use App\Repositories\GroceryItemRepository;
 use App\Repositories\GroceryListRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public $bindings = [
         GroceryListRepositoryContract::class => GroceryListRepository::class,
+        GroceryItemRepositoryContract::class => GroceryItemRepository::class,
     ];
 
     /**
