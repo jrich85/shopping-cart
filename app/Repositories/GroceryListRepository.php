@@ -7,7 +7,9 @@ use App\Repositories\Contracts\GroceryListRepositoryContract;
 
 class GroceryListRepository implements GroceryListRepositoryContract
 {
-    public GroceryList $model;
+    public function __construct(public GroceryList $model)
+    {
+    }
 
     /** @inheritDoc */
     public function create(string $name): GroceryList
@@ -15,4 +17,9 @@ class GroceryListRepository implements GroceryListRepositoryContract
         return $this->model->newModelQuery()->create(['name' => $name]);
     }
 
+    /** @inheritDoc */
+    public function find(string $id): ?GroceryList
+    {
+        return $this->model->newModelQuery()->where('id', $id)->first();
+    }
 }

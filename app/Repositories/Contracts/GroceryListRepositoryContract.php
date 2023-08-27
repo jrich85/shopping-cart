@@ -13,4 +13,12 @@ interface GroceryListRepositoryContract
      * @return GroceryList
      */
     public function create(string $name): GroceryList;
+
+    /**
+     * Search for a grocery list by its id.
+     *
+     * @param string $id
+     * @return GroceryList|null
+     */
+    public function find(string $id): ?GroceryList;
 }
