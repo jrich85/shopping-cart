@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Repositories;
 
+use App\Models\Grocery;
 use App\Models\GroceryList;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
 use Illuminate\Support\Collection;
@@ -45,5 +46,16 @@ class GroceryListRepositoryTest extends TestCase
     public function null_value_is_returned_if_id_is_not_found(): void
     {
         static::assertNull($this->repository->find(Str::uuid()));
+    }
+
+    /** @test */
+    public function can_delete_a_grocery_list(): void
+    {
+        $list = GroceryList::factory()->create();
+        Grocery::factory(count: 5)->create(['grocery_list_id' => $list->id]);
+
+        $this->repository->delete($list->id);
+
+        static::assertSoftDeleted($list);
     }
 }

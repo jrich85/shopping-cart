@@ -24,4 +24,13 @@ interface GroceryItemRepositoryContract
      * @return Collection<int, Grocery>
      */
     public function getAll(string $groceryListId, bool $withTrashed = false): Collection;
+
+    /**
+     * Soft-delete a specific grocery list item, by list id and item id.
+     *
+     * @param string $listId
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $listId, string $id): void;
 }

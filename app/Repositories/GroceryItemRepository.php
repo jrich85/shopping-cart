@@ -36,4 +36,11 @@ class GroceryItemRepository implements GroceryItemRepositoryContract
         return $query->get();
     }
 
+    /** @inheritDoc */
+    public function delete(string $listId, string $id): void
+    {
+        $this->model->newQuery()->where('grocery_list_id', $listId)
+            ->where('id', $id)->delete();
+    }
+
 }

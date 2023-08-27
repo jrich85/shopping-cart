@@ -37,4 +37,10 @@ class GroceryListRepository implements GroceryListRepositoryContract
 
         return $query->simplePaginate(perPage: $perPage, page: $page);
     }
+
+    /** @inheritDoc */
+    public function delete(string $id): void
+    {
+        $this->model->newQuery()->where('id', $id)->delete();
+    }
 }

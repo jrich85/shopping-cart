@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGroceryListRequest;
+use App\Http\Requests\DeleteGroceryListRequest;
 use App\Http\Requests\GetGroceryListRequest;
 use App\Http\Requests\GetPaginatedListRequest;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
@@ -33,6 +34,13 @@ class GroceryListController extends Controller
             page: $request->page,
             perPage: $request->per_page
         ), Response::HTTP_OK);
+    }
+
+    public function delete(DeleteGroceryListRequest $request)
+    {
+        $this->groceryListRepository->delete($request->id);
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
 }

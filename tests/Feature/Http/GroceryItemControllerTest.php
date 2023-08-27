@@ -4,6 +4,7 @@ namespace Tests\Feature\Http;
 
 use App\Models\Grocery;
 use App\Models\GroceryList;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -81,5 +82,45 @@ class GroceryItemControllerTest extends TestCase
             ]]]);
 
     }
+
     // endregion getAll
+
+    // region delete
+
+    /** @test */
+    public function can_delete_a_grocery_list_item(): void
+    {
+        $list = GroceryList::factory()->create();
+        /** @var Collection<int, Grocery> $groceries */
+        $groceries = Grocery::factory(count: 10)->create(['grocery_list_id' => $list->id]);
+
+        $grocery = $groceries->random();
+
+        $this->deleteJson(route('grocery-list.item.delete', ['listId' => $list->id, 'id' => $grocery->id]),
+            ['listId' => $list->id, 'id' => $grocery->id]
+        )->assertNoContent();
+
+        static::assertSoftDeleted($grocery);
+        static::assertCount(9, $list->fresh()->groceries);
+    }
+
+    /** @test */
+    public function list_item_must_belong_to_list_when_deleting(): void
+    {
+        $list = GroceryList::factory()->create();
+        /** @var Collection<int, Grocery> $groceries */
+        $groceries = Grocery::factory(count: 10)->create(['grocery_list_id' => $list->id]);
+
+        $grocery = $groceries->random();
+
+        $this->deleteJson(route('grocery-list.item.delete', ['listId' => $fakeId = Str::uuid(), 'id' => $grocery->id]),
+            ['listId' => $fakeId, 'id' => $grocery->id]
+        )->assertUnprocessable()
+            ->assertJsonValidationErrorFor('listId');
+
+        static::assertNotSoftDeleted($grocery);
+        static::assertCount(10, $list->fresh()->groceries);
+    }
+
+    // endregion delete
 }

@@ -23,7 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('grocery-list')->group(function () {
     Route::get('/', [GroceryListController::class, 'getAll'])->name('grocery-list.get-all');
     Route::post('/', [GroceryListController::class, 'create'])->name('grocery-list.create');
+    Route::delete('/{id}', [GroceryListController::class, 'delete'])->name('grocery-list.delete');
     Route::get('/{id}', [GroceryListController::class, 'get'])->name('grocery-list.get');
     Route::get('/{id}/items', [GroceryItemController::class, 'getAll'])->name('grocery-list.items.get-all');
     Route::post('/{id}/items', [GroceryItemController::class, 'create'])->name('grocery-list.item.create');
+    Route::delete('/{listId}/items/{id}', [GroceryItemController::class, 'delete'])->name('grocery-list.item.delete');
 });

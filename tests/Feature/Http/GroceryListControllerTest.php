@@ -57,6 +57,16 @@ class GroceryListControllerTest extends TestCase
             ->assertJsonValidationErrorFor('id');
     }
 
+    /** @test */
+    public function can_get_a_grocery_list(): void
+    {
+        $list = GroceryList::factory()->create();
+
+        $this->getJson(route('grocery-list.get', $list->id))
+            ->assertOk()
+            ->assertSeeText($list->name);
+    }
+
     // endregion get
 
     // region getAll
@@ -129,4 +139,19 @@ class GroceryListControllerTest extends TestCase
     }
 
     // endregion getAll
+
+    // region delete
+
+    /** @test */
+    public function can_delete_a_grocery_list(): void
+    {
+        $list = GroceryList::factory()->create();
+
+        $this->deleteJson(route('grocery-list.delete', $list->id), ['id' => $list->id])
+            ->assertNoContent();
+
+        static::assertSoftDeleted($list);
+    }
+
+    // endregion delete
 }

@@ -31,4 +31,12 @@ interface GroceryListRepositoryContract
      */
     public function getAll(bool $withTrashed=false): Paginator;
 
+    /**
+     * Soft-delete a specific grocery list, by id.
+     *
+     * @param string $id
+     * @return void
+     */
+    public function delete(string $id): void;
+
 }
