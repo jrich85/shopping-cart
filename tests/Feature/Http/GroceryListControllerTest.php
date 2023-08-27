@@ -39,6 +39,44 @@ class GroceryListControllerTest extends TestCase
 
     // endregion create
 
+    // region update
+
+    /** @test */
+    public function can_update_a_lists_name(): void
+    {
+        $list = GroceryList::factory()->create();
+
+        $name = 'New name';
+
+        $this->patchJson(route('grocery-list.update', [$list->id]), ['name' => $name])
+            ->assertOk()
+            ->assertSeeText($name);
+
+        static::assertSame($name, $list->fresh()->name);
+    }
+
+    /** @test */
+    public function a_lists_name_must_be_unique_when_updating(): void
+    {
+        GroceryList::factory()->create(['name' => $existingName = 'existing name']);
+        $list = GroceryList::factory()->create();
+
+        $this->patchJson(route('grocery-list.update', [$list->id]), ['name' => $existingName])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrorFor('name');
+    }
+
+    /** @test */
+    public function a_lists_own_name_is_not_considered_when_updating(): void
+    {
+        $list = GroceryList::factory()->create();
+
+        $this->patchJson(route('grocery-list.update', [$list->id]), ['name' => $list->name])
+            ->assertOk();
+    }
+
+    // endregion update
+
     // region get
 
     /** @test */

@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroceryListRequest;
 use App\Http\Requests\DeleteGroceryListRequest;
 use App\Http\Requests\GetGroceryListRequest;
 use App\Http\Requests\GetPaginatedListRequest;
+use App\Http\Requests\UpdateGroceryListRequest;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
 use Illuminate\Http\Response;
 
@@ -20,6 +21,14 @@ class GroceryListController extends Controller
         $newList = $this->groceryListRepository->create($request->name);
 
         return response()->json([$newList->toJson()], Response::HTTP_OK);
+    }
+
+    public function update(UpdateGroceryListRequest $request)
+    {
+        $newList = $this->groceryListRepository->update($request->id, $request->name);
+
+        return response()->json([$newList->toJson()], Response::HTTP_OK);
+
     }
 
     public function get(GetGroceryListRequest $request)

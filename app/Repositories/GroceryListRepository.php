@@ -19,6 +19,18 @@ class GroceryListRepository implements GroceryListRepositoryContract
     }
 
     /** @inheritDoc */
+    public function update(string $id, string $name): GroceryList
+    {
+        $groceryList = $this->find($id);
+
+        $groceryList->update([
+            'name' => $name,
+        ]);
+
+        return $groceryList;
+    }
+
+    /** @inheritDoc */
     public function find(string $id): ?GroceryList
     {
         return $this->model->newModelQuery()->where('id', $id)->first();

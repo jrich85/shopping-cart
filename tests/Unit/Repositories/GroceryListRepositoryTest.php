@@ -29,6 +29,16 @@ class GroceryListRepositoryTest extends TestCase
     }
 
     /** @test */
+    public function can_update_a_grocery_lists_name(): void
+    {
+        $groceryList = $this->repository->create(name: 'Uniforms');
+
+        $this->repository->update(id: $groceryList->id, name: 'New Uniforms');
+
+        static::assertSame('New Uniforms', $groceryList->fresh()->name);
+    }
+
+    /** @test */
     public function can_find_a_grocery_list_by_id(): void
     {
         /** @var Collection<int, GroceryList> $groceryLists */
