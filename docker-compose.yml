@@ -1,5 +1,5 @@
 services:
-    laravel.test:
+    penguins.test:
         build:
             context: ./vendor/laravel/sail/runtimes/8.2
             dockerfile: Dockerfile
@@ -24,8 +24,8 @@ services:
         depends_on:
             - mysql
             - redis
-            - meilisearch
-            - mailpit
+#            - meilisearch
+#            - mailpit
             - selenium
     mysql:
         image: 'mysql/mysql-server:8.0'
@@ -66,30 +66,30 @@ services:
                 - ping
             retries: 3
             timeout: 5s
-    meilisearch:
-        image: 'getmeili/meilisearch:latest'
-        ports:
-            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
-        volumes:
-            - 'sail-meilisearch:/meili_data'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - wget
-                - '--no-verbose'
-                - '--spider'
-                - 'http://localhost:7700/health'
-            retries: 3
-            timeout: 5s
-    mailpit:
-        image: 'axllent/mailpit:latest'
-        ports:
-            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
-            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
-        networks:
-            - sail
+#    meilisearch:
+#        image: 'getmeili/meilisearch:latest'
+#        ports:
+#            - '${FORWARD_MEILISEARCH_PORT:-7700}:7700'
+#        volumes:
+#            - 'sail-meilisearch:/meili_data'
+#        networks:
+#            - sail
+#        healthcheck:
+#            test:
+#                - CMD
+#                - wget
+#                - '--no-verbose'
+#                - '--spider'
+#                - 'http://localhost:7700/health'
+#            retries: 3
+#            timeout: 5s
+#    mailpit:
+#        image: 'axllent/mailpit:latest'
+#        ports:
+#            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+#            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+#        networks:
+#            - sail
     selenium:
         image: seleniarm/standalone-chromium
         extra_hosts:
