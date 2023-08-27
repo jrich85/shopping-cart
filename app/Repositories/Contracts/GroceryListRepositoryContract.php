@@ -4,6 +4,7 @@ namespace App\Repositories\Contracts;
 
 use App\Models\GroceryList;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 interface GroceryListRepositoryContract
 {
@@ -48,4 +49,12 @@ interface GroceryListRepositoryContract
      */
     public function delete(string $id): void;
 
+    /**
+     * Reorder the entire grocery list.
+     *
+     * @param string $id
+     * @param array $groceryIds
+     * @return Collection
+     */
+    public function reorder(string $id, array $groceryIds): Collection;
 }

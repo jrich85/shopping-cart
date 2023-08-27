@@ -15,6 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->foreignUuid('grocery_list_id')->constrained();
+            $table->integer('order')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

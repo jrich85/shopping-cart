@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\GroceryList $groceryList
+ * @property int $order
  * @method static \Database\Factories\GroceryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery newQuery()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Grocery withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Grocery whereOrder($value)
  * @mixin \Eloquent
  */
 class Grocery extends BaseModel

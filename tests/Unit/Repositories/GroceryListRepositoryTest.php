@@ -68,4 +68,17 @@ class GroceryListRepositoryTest extends TestCase
 
         static::assertSoftDeleted($list);
     }
+
+    /** @test */
+    public function can_reorder_a_grocery_list(): void
+    {
+        $list = GroceryList::factory()->create();
+        [$item1, $item2] = Grocery::factory(count: 2)->create(['grocery_list_id' => $list->id]);
+
+        $this->repository->reorder($list->id, [$item2->id, $item1->id]);
+
+        static::assertSame(0, $item2->fresh()->order);
+        static::assertSame(1, $item1->fresh()->order);
+    }
+
 }

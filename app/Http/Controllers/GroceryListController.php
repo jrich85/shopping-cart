@@ -6,6 +6,7 @@ use App\Http\Requests\CreateGroceryListRequest;
 use App\Http\Requests\DeleteGroceryListRequest;
 use App\Http\Requests\GetGroceryListRequest;
 use App\Http\Requests\GetPaginatedListRequest;
+use App\Http\Requests\ReorderGroceriesRequest;
 use App\Http\Requests\UpdateGroceryListRequest;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
 use Illuminate\Http\Response;
@@ -51,4 +52,11 @@ class GroceryListController extends Controller
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
 
+    public function reorder(ReorderGroceriesRequest $request)
+    {
+
+        $updatedList = $this->groceryListRepository->reorder($request->id, $request->order);
+
+        return response()->json(['data' => $updatedList], Response::HTTP_OK);
+    }
 }

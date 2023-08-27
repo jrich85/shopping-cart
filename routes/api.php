@@ -27,6 +27,7 @@ Route::prefix('grocery-list')->group(function () {
     Route::get('/', [GroceryListController::class, 'getAll'])->name('grocery-list.get-all');
     Route::post('/', [GroceryListController::class, 'create'])->name('grocery-list.create');
     Route::patch('/{id}', [GroceryListController::class, 'update'])->name('grocery-list.update');
+    Route::put('/{id}/items', [GroceryListController::class, 'reorder'])->name('grocery-list.reorder');
     Route::delete('/{id}', [GroceryListController::class, 'delete'])->name('grocery-list.delete');
     Route::get('/{id}', [GroceryListController::class, 'get'])->name('grocery-list.get');
 

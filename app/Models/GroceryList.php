@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|GroceryList onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|GroceryList withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|GroceryList withoutTrashed()
+ * @property-read int|null $groceries_count
  * @mixin \Eloquent
  */
 class GroceryList extends BaseModel

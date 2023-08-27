@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\GroceryList;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 class GroceryListRepository implements GroceryListRepositoryContract
 {
@@ -54,5 +55,22 @@ class GroceryListRepository implements GroceryListRepositoryContract
     public function delete(string $id): void
     {
         $this->model->newQuery()->where('id', $id)->delete();
+    }
+
+    /** @inheritDoc */
+    public function reorder(string $id, array $groceryIds): Collection
+    {
+        $list = $this->model->newModelQuery()->with(['groceries'])->find($id);
+
+        // just in case there is something weird here
+        $groceryIds = array_values($groceryIds);
+
+        foreach ($groceryIds as $order => $groceryId) {
+            $list->groceries()
+                ->where('id', $groceryId)
+                ->update(['order' => $order]);
+        }
+
+        return $list->fresh()->groceries;
     }
 }

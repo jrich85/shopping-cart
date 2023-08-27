@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http;
 
+use App\Models\Grocery;
 use App\Models\GroceryList;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -192,4 +193,45 @@ class GroceryListControllerTest extends TestCase
     }
 
     // endregion delete
+
+    // region reorder
+
+    /** @test */
+    public function can_reorder_a_list(): void
+    {
+        $list = GroceryList::factory()->create();
+        [$item1, $item2] = Grocery::factory(count: 2)->create(['grocery_list_id' => $list->id]);
+
+        $this->putJson(route('grocery-list.reorder', [$list->id]), ['order' => [$item2->id, $item1->id]])
+            ->assertOk()
+            ->assertJsonFragment([
+                'id' => $item1->id,
+                'order' => 1
+            ])->assertJsonFragment([
+                'id' => $item2->id,
+                'order' => 0
+            ]);
+
+    }
+
+    /** @test */
+    public function must_supply_all_groceries_to_reorder(): void
+    {
+        $list = GroceryList::factory()->create();
+        [$item1, $item2] = Grocery::factory(count: 2)->create(['grocery_list_id' => $list->id]);
+        $item3 = Grocery::factory()->create();
+
+        // not enough to reorder
+        $this->putJson(route('grocery-list.reorder', [$list->id]), ['order' => [$item2->id]])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrorFor('order');
+
+        // have enough, but the wrong ones.
+        $this->putJson(route('grocery-list.reorder', [$list->id]), ['order' => [$item2->id, $item3->id]])
+            ->assertUnprocessable()
+            ->assertJsonValidationErrorFor('order.1');
+    }
+
+    // endregion reorder
+
 }
