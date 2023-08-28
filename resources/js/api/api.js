@@ -66,7 +66,6 @@ const api = {
 
             return newItem.data;
         } catch (error) {
-
             const messages = error.response.data.errors;
 
             return {
@@ -76,7 +75,7 @@ const api = {
     },
     deleteItemFromList: async (listId, itemId) => {
         try {
-            const newItem = await window.axios.delete(
+            const deleted = await window.axios.delete(
                 `api/grocery-list/${listId}/items/${itemId}`,
                 {
                     listId: listId,
@@ -86,7 +85,6 @@ const api = {
 
             return true;
         } catch (error) {
-
             const messages = error.response.data.errors;
 
             return {
@@ -94,7 +92,20 @@ const api = {
             };
         }
     },
-    reorder: async(listId, items) => {
+    deleteList: async (id) => {
+        try {
+            const deleted = await window.axios.delete(`api/grocery-list/${id}`);
+
+            return true;
+        } catch (error) {
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+    },
+    reorder: async (listId, items) => {
         try {
             const newItem = await window.axios.put(
                 `api/grocery-list/${listId}/items`,
@@ -106,15 +117,13 @@ const api = {
 
             return true;
         } catch (error) {
-
             const messages = error.response.data.errors;
 
             return {
                 errors: messages,
             };
         }
-
-    }
+    },
 };
 
 export default api;

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateGroceryListRequest;
-use App\Http\Requests\DeleteGroceryListRequest;
 use App\Http\Requests\GetGroceryListRequest;
 use App\Http\Requests\GetPaginatedListRequest;
 use App\Http\Requests\ReorderGroceriesRequest;
 use App\Http\Requests\UpdateGroceryListRequest;
 use App\Repositories\Contracts\GroceryListRepositoryContract;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
 class GroceryListController extends Controller
@@ -45,9 +45,9 @@ class GroceryListController extends Controller
         ), Response::HTTP_OK);
     }
 
-    public function delete(DeleteGroceryListRequest $request)
+    public function delete(FormRequest $request)
     {
-        $this->groceryListRepository->delete($request->id);
+        $this->groceryListRepository->delete($request->route('id'));
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
