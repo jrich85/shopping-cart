@@ -2,20 +2,26 @@
     <svg-icon type="mdi" :path="path" @click.stop="modalOpen = true"></svg-icon>
     <v-dialog v-model="modalOpen" class="delete-modal">
         <v-card>
-            <v-card-title>Are you sure?</v-card-title>
+            <v-card-title class="branded-title">Are you sure?</v-card-title>
             <v-card-text>
                 Please confirm you want to delete shopping list [{{ name }}].
             </v-card-text>
-            <v-card-actions>
-                <v-btn @click="modalOpen = false">Cancel</v-btn>
-                <v-btn @click="deleteList">Confirm</v-btn>
-            </v-card-actions>
+            <v-container>
+                <v-row no-gutters>
+                    <v-col cols="2">
+                        <v-btn flat @click="modalOpen = false">Cancel</v-btn>
+                    </v-col>
+                    <v-spacer /><v-col cols="2">
+                        <v-btn class="btn-primary" @click="deleteList">Confirm</v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card>
     </v-dialog>
 </template>
 
 <script>
-import api from '../api/api';
+import api from "../api/api";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiDeleteCircle } from "@mdi/js";
 
@@ -25,10 +31,10 @@ export default {
         SvgIcon,
     },
     props: {
-        name: 'string',
-        id: 'string',
+        name: "string",
+        id: "string",
     },
-    emits: ['deletedList'],
+    emits: ["deletedList", "click"],
     data() {
         return {
             path: mdiDeleteCircle,
@@ -37,11 +43,13 @@ export default {
     },
     methods: {
         deleteList() {
-            api.deleteList(this.id).then(() => {
-                this.$emit('deletedList');
-            }).then(() => {
-                this.modalOpen = false;
-            });
+            api.deleteList(this.id)
+                .then(() => {
+                    this.$emit("deletedList");
+                })
+                .then(() => {
+                    this.modalOpen = false;
+                });
         },
     },
 };

@@ -1,13 +1,25 @@
 <template>
-    <v-card class="shopping-list-container" v-if="!!list.value?.name">
-        <v-card-title>
-            <v-container>
-                <v-row justify="space-between" no-gutters>
+    <v-card
+        class="shopping-list-container"
+        v-if="!!list.value?.name"
+        flat
+        :rounded="0"
+    >
+        <v-card-title class="branded-title">
+            <v-container class="no-gutters">
+                <v-row justify="space-between" :align="'center'" no-gutters>
                     <v-col>
                         {{ list.value.name }}
                     </v-col>
-                    <v-col cols="1">
-                        <v-btn @click="router.push('/lists')">x</v-btn>
+                    <v-spacer/>
+                    <v-col cols="1" align-self="end">
+                        <v-btn
+                            class="btn-close"
+                            flat
+                            :rounded="0"
+                            @click="router.push('/lists')"
+                        >
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-container>

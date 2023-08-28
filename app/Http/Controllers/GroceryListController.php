@@ -21,7 +21,7 @@ class GroceryListController extends Controller
     {
         $newList = $this->groceryListRepository->create($request->name);
 
-        return response()->json([$newList->toJson()], Response::HTTP_OK);
+        return response()->json(['data' => $newList], Response::HTTP_OK);
     }
 
     public function update(UpdateGroceryListRequest $request)

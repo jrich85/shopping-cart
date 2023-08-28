@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * CreateGroceryListRequest
@@ -20,7 +21,13 @@ class CreateGroceryListRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'bail|required|string|unique:grocery_lists,name'
+            'name' => [
+                'bail',
+                'required',
+                'string',
+                Rule::unique('grocery_lists', 'name')
+                    ->whereNull('deleted_at'),
+            ],
         ];
     }
 

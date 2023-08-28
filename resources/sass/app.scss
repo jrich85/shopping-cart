@@ -1,27 +1,32 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.bunny.net/css?family=Nunito");
 @font-face {
-    font-family: 'black_ops_oneregular';
-    src: url('/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff2') format('woff2'),
-         url('/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff') format('woff');
+    font-family: "black_ops_oneregular";
+    src: url("/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff2")
+            format("woff2"),
+        url("/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff")
+            format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
-
+@import "bootstrap/scss/bootstrap";
 
 .shopping-list-container {
     max-width: $modal-width;
     margin: ($spacer * 2) auto;
+
+    .branded-title {
+        margin-bottom: $spacer * 2;
+    }
 }
 .application {
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
     height: 100vh;
     width: 100vw;
     background: $black;
@@ -32,25 +37,61 @@
     font-family: $title-font-family-sans-serif;
     background: $gold !important;
     color: $black;
-    border-bottom: 0.5rem $black solid!important;
-    outline: 0.75rem $white solid!important;
+    border-bottom: 0.5rem $black solid !important;
+    outline: 0.75rem $white solid !important;
     .v-toolbar-title {
         padding: 0 $spacer;
         text-transform: uppercase;
     }
 }
 
+.branded-title {
+    font-family: $title-font-family-sans-serif;
+    text-transform: uppercase;
+    background: $gold !important;
+    color: $black;
+    border-bottom: 0.5rem $white solid !important;
+    outline: 0.75rem $black solid !important;
+}
+
 .shopping-lists {
-    max-width: $modal-width * 2;
+    max-width: $modal-width;
     margin: ($spacer * 2) auto;
 }
 
 .delete-modal {
     max-width: $modal-width;
+
+    .branded-title {
+        margin-bottom: $spacer * 2;
+    }
 }
 
 .shopping-list-item {
-    .v-list-item__content{
-        padding-left:$spacer;
+    .v-list-item__content {
+        padding-left: $spacer;
     }
+}
+
+.btn-primary {
+    background: $gold;
+    color: $black;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    background: $black;
+    * {
+        color: $gold;
+    }
+}
+
+.no-gutters {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.btn-close {
+    padding: 0;
+    margin:0 $spacer 0 0;
 }

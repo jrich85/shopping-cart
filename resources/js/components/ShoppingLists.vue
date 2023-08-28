@@ -1,7 +1,7 @@
 <template>
     <div>
-        <v-card class="shopping-lists">
-            <v-card-title> Shopping Lists </v-card-title>
+        <v-card class="shopping-lists" flat :rounded="0">
+            <v-card-title class="branded-title"> Shopping Lists </v-card-title>
 
             <v-card-text>
                 <shopping-lists-list :lists="lists" />
@@ -30,17 +30,18 @@
 
 <script setup>
 import api from "../api/api";
-import ShoppingListsList from "../components/ShoppingListsList.vue";
 import { computed, onMounted, ref, reactive } from "vue";
+import { useRouter } from "vue-router";
 
 onMounted(() => {
     getLists();
 });
 
-// region dataonMounted
+// region data
 let lists = reactive([]);
 let newListTitle = ref("");
 let newListErrors = reactive([]);
+const router = useRouter();
 // endregion data
 
 // region computed vars
@@ -73,8 +74,7 @@ const newList = () => {
                 newListErrors.push(errorToShow[key])
             );
         } else {
-            newListTitle = "";
-            getLists();
+            router.push(`/lists/${newList.data.id}`);
         }
     });
 };
