@@ -18,7 +18,7 @@ class GroceryItemController extends Controller
     public function create(AddGroceryToListRequest $request)
     {
         return response()->json(
-            $this->repository->create($request->name, $request->groceryListId),
+            ['data' => $this->repository->create($request->name, $request->groceryListId)],
             Response::HTTP_OK
         );
     }

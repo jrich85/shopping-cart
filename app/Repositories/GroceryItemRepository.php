@@ -15,9 +15,12 @@ class GroceryItemRepository implements GroceryItemRepositoryContract
     /** @inheritDoc */
     public function create(string $name, string $groceryListId): Grocery
     {
+        $currentCount = $this->model->where('grocery_list_id', $groceryListId)->count();
+
         return $this->model->newModelQuery()->create([
             'name' => $name,
             'grocery_list_id' => $groceryListId,
+            'order' => $currentCount,
         ]);
     }
 
@@ -46,7 +49,7 @@ class GroceryItemRepository implements GroceryItemRepositoryContract
             $query->withTrashed();
         }
 
-        $query->orderBy('created_at', 'desc');
+        $query->orderBy('order');
 
         return $query->get();
     }

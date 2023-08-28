@@ -47,13 +47,13 @@ class GroceryItemControllerTest extends TestCase
 
         $this->postJson(route('grocery-list.item.create', ['id' => $list->id]), ['name' => 'Bananas'])
             ->assertOk()
-            ->assertJsonStructure([
+            ->assertJsonStructure(['data' => [
                 'id',
                 'name',
                 'grocery_list_id',
                 'created_at',
                 'updated_at',
-            ])
+            ]])
             ->assertSeeText('Bananas');
 
     }

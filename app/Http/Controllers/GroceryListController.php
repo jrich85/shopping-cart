@@ -33,7 +33,7 @@ class GroceryListController extends Controller
 
     public function get(GetGroceryListRequest $request)
     {
-        return response()->json($this->groceryListRepository->find($request->id), Response::HTTP_OK);
+        return response()->json(['data' => $this->groceryListRepository->find($request->id)], Response::HTTP_OK);
     }
 
     public function getAll(GetPaginatedListRequest $request)

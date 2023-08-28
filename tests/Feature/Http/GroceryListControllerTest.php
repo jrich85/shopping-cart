@@ -4,6 +4,7 @@ namespace Tests\Feature\Http;
 
 use App\Models\Grocery;
 use App\Models\GroceryList;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
