@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Pittsburgh Penguins Shopping List</title>
+        <title>Pittsburgh Penguins FSE Interview Coding Exercise - Shopping Lists</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

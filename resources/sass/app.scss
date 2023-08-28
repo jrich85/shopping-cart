@@ -1,8 +1,39 @@
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
+@font-face {
+    font-family: 'black_ops_oneregular';
+    src: url('/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff2') format('woff2'),
+         url('/resources/fonts/Black_Ops_One/blackopsone-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+
+.shopping-list-container {
+    max-width: $modal-width;
+    margin: ($spacer * 2) auto;
+}
+.application {
+    margin:0;
+    padding:0;
+    height: 100vh;
+    width: 100vw;
+    background: $black;
+    color: $white;
+}
+
+.app-bar {
+    font-family: $title-font-family-sans-serif;
+    background: $gold !important;
+    color: $black;
+    border-bottom: 1rem $white solid!important;
+    .v-toolbar-title {
+        text-transform: uppercase;
+    }
+}

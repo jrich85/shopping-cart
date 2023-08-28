@@ -1,6 +1,17 @@
 <template>
     <v-card class="shopping-list-container" v-if="!!list.value?.name">
-        <v-card-title>{{ list.value.name }}</v-card-title>
+        <v-card-title>
+            <v-container>
+                <v-row justify="space-between" no-gutters>
+                    <v-col>
+                        {{ list.value.name }}
+                    </v-col>
+                    <v-col cols="1">
+                        <v-btn @click="router.push('/lists')">x</v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-card-title>
         <v-list v-if="listItems.length">
             <v-list-item
                 v-for="item in listItems"
@@ -30,9 +41,10 @@
 <script setup>
 import api from "../api/api";
 import { onMounted, reactive, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import DeleteListItem from "./DeleteListItem.vue";
 const route = useRoute();
+const router = useRouter();
 
 const newItem = ref("");
 const newItemErrors = reactive([]);
