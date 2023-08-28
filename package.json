@@ -16,6 +16,8 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@jamescoyle/vue-icon": "^0.1.2",
+        "@mdi/js": "^7.2.96",
         "vite-plugin-vuetify": "^1.0.2",
         "vue-router": "^4.2.4",
         "vuetify": "^3.3.14"

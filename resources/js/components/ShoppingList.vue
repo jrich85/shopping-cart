@@ -1,13 +1,15 @@
 <template>
-    <v-card v-if="!!list.value?.name">
+    <v-card class="shopping-list-container" v-if="!!list.value?.name">
         <v-card-title>{{ list.value.name }}</v-card-title>
         <v-list v-if="listItems.length">
             <v-list-item
                 v-for="item in listItems"
                 :key="item.id"
                 :title="item.name"
+                :append-icon="DeleteListItem"
             />
         </v-list>
+
         <v-card-text v-else>Enter a new item to get started</v-card-text>
 
         <v-card-text>Created: {{ list.value.created_at }}</v-card-text>
@@ -29,6 +31,7 @@
 import api from "../api/api";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute } from "vue-router";
+import DeleteListItem from "./DeleteListItem.vue";
 const route = useRoute();
 
 const newItem = ref("");
