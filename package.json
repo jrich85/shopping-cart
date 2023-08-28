@@ -16,6 +16,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "vite-plugin-vuetify": "^1.0.2",
         "vuetify": "^3.3.14"
     }
 }
