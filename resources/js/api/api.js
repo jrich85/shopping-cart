@@ -124,6 +124,44 @@ const api = {
             };
         }
     },
+    updateList: async (id, name) => {
+        try {
+            const updated = await window.axios.patch(
+                `api/grocery-list/${id}`,
+                {
+                    name: name,
+                }
+            );
+
+            return updated;
+        } catch (error) {
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+    },
+    updateListItem: async (id, listId, name) => {
+        try {
+            const updated = await window.axios.patch(
+                `api/grocery-list/${listId}/items/${id}`,
+                {
+                    listId: listId,
+                    id: id,
+                    name: name,
+                }
+            );
+
+            return updated;
+        } catch (error) {
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+    },
 };
 
 export default api;

@@ -38,11 +38,19 @@
                 <v-container>
                     <v-row>
                         <v-col cols="1"> <menu-icon></menu-icon> </v-col>
-                        <v-col>{{ element?.name ?? "" }}</v-col>
+                        <v-col>
+                            <edit-title
+                                :title="element.name"
+                                :id="element.id"
+                                :listId="list.value.id"
+                                type="list-item"
+                                v-on:newTitle="updateListItemTitle"
+                            />
+                        </v-col>
                         <v-col cols="1">
                             <delete-list-item
-                                :name="element?.name ?? ''"
-                                :itemId="element?.id ?? ''"
+                                :name="element.name"
+                                :itemId="element.id"
                                 :listId="list.value.id"
                                 v-on:deletedItem="listItems.splice(index, 1)"
                             />
@@ -75,9 +83,12 @@ import draggable from "vuedraggable";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import DeleteListItem from "./DeleteListItem.vue";
+import EditTitle from "./EditTitle.vue";
+
 const route = useRoute();
 const router = useRouter();
 
+const editTitleOpen = ref(false);
 const drag = ref(false);
 const newItem = ref("");
 const newItemErrors = reactive([]);
@@ -90,6 +101,12 @@ onMounted(() => {
     getList();
     getListItems();
 });
+
+const updateListItemTitle = (title, id) => {
+    listItems.map((listItem) =>
+        listItem.id === id ? (listItem.name = title) : listItem
+    );
+};
 
 // region api actions
 const getList = () => {
@@ -138,7 +155,6 @@ const addNewItem = () => {
         return;
     }
     api.addItemToList(route.params.id, newItem.value).then((addedItem) => {
-        console.log(addedItem);
         if (addedItem.errors) {
             const errorToShow = addedItem.errors.name;
             Object.keys(errorToShow).forEach((key) =>
@@ -150,5 +166,6 @@ const addNewItem = () => {
         }
     });
 };
+
 // endregion api actions
 </script>

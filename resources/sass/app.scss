@@ -59,6 +59,14 @@
     margin: ($spacer * 2) auto;
 }
 
+.edit-title-modal {
+    max-width: $modal-width;
+
+    .branded-title {
+        margin-bottom: $spacer * 2;
+    }
+}
+
 .delete-modal {
     max-width: $modal-width;
 
@@ -84,6 +92,13 @@
     * {
         color: $gold;
     }
+}
+
+.btn-edit {
+    background: inherit;
+    padding: 0 !important;
+    width:1rem!important;
+    margin-left:0!important;
 }
 
 .no-gutters {
