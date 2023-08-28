@@ -8,7 +8,35 @@ const api = {
             const messages = error.response.data.errors;
 
             return {
-                errors: messages
+                errors: messages,
+            };
+        }
+    },
+    getList: async (listId) => {
+        try {
+            const list = await window.axios.get(`api/grocery-list/${listId}`);
+
+            return list.data;
+        } catch (error) {
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+    },
+    getListItems: async (listId) => {
+        try {
+            const listItems = await window.axios.get(
+                `api/grocery-list/${listId}/items`
+            );
+
+            return listItems.data;
+        } catch (error) {
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
             };
         }
     },
@@ -23,7 +51,29 @@ const api = {
             const messages = error.response.data.errors;
 
             return {
-                errors: messages
+                errors: messages,
+            };
+        }
+    },
+    addItemToList: async (listId, name) => {
+        try {
+            const newItem = await window.axios.post(
+                `api/grocery-list/${listId}/items`,
+                {
+                    name: name,
+                }
+            );
+
+            console.log('newItem??', newItem);
+
+            return newItem.data;
+        } catch (error) {
+
+            console.log('error??', error);
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
             };
         }
     },
