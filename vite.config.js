@@ -19,7 +19,7 @@ export default defineConfig({
                 },
             },
         }),
-        vuetify({ autoImport: true }), // Enabled by default
+        vuetify({ autoImport: true }),
     ],
     resolve: {
         alias: {

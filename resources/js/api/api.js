@@ -64,12 +64,29 @@ const api = {
                 }
             );
 
-            console.log('newItem??', newItem);
-
             return newItem.data;
         } catch (error) {
 
-            console.log('error??', error);
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+    },
+    deleteItemFromList: async (listId, itemId) => {
+        try {
+            const newItem = await window.axios.delete(
+                `api/grocery-list/${listId}/items/${itemId}`,
+                {
+                    listId: listId,
+                    id: itemId,
+                }
+            );
+
+            return true;
+        } catch (error) {
+
             const messages = error.response.data.errors;
 
             return {

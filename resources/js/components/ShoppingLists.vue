@@ -1,26 +1,24 @@
 <template>
-    <div class="container-fluid application">
-        <div class="application">
-            <v-card>
-                <v-card-title> Shopping Lists </v-card-title>
+    <div>
+        <v-card class="shopping-lists">
+            <v-card-title> Shopping Lists </v-card-title>
 
-                <v-card-text>
-                    <shopping-lists-list :lists="lists" />
-                </v-card-text>
+            <v-card-text>
+                <shopping-lists-list :lists="lists" />
+            </v-card-text>
 
-                <v-card-actions>
-                    <v-text-field
-                        label="Give your new list a title"
-                        v-model="newListTitle"
-                        v-on:keyup.enter="newList"
-                        :disabled="disableNewList"
-                        :error-messages="newListErrors"
-                        hint="Must be a unique title"
-                    />
-                    <v-btn @click="newList">Create New List</v-btn>
-                </v-card-actions>
-            </v-card>
-        </div>
+            <v-card-actions>
+                <v-text-field
+                    label="Give your new list a title"
+                    v-model="newListTitle"
+                    v-on:keyup.enter="newList"
+                    :disabled="disableNewList"
+                    :error-messages="newListErrors"
+                    hint="Must be a unique title"
+                />
+                <v-btn @click="newList">Create New List</v-btn>
+            </v-card-actions>
+        </v-card>
     </div>
 </template>
 

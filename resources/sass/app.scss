@@ -32,8 +32,19 @@
     font-family: $title-font-family-sans-serif;
     background: $gold !important;
     color: $black;
-    border-bottom: 1rem $white solid!important;
+    border-bottom: 0.5rem $black solid!important;
+    outline: 0.75rem $white solid!important;
     .v-toolbar-title {
+        padding: 0 $spacer;
         text-transform: uppercase;
     }
+}
+
+.shopping-lists {
+    max-width: $modal-width * 2;
+    margin: ($spacer * 2) auto;
+}
+
+.delete-modal {
+    max-width: $modal-width;
 }

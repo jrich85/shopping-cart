@@ -14,11 +14,20 @@
         </v-card-title>
         <v-list v-if="listItems.length">
             <v-list-item
-                v-for="item in listItems"
+                v-for="(item, index) in listItems"
                 :key="item.id"
                 :title="item.name"
-                :append-icon="DeleteListItem"
-            />
+                :subtitle="index"
+            >
+                <template v-slot:append>
+                    <delete-list-item
+                        :name="item.name"
+                        :itemId="item.id"
+                        :listId="list.value.id"
+                        v-on:deletedItem="listItems.splice(index, 1)"
+                    />
+                </template>
+            </v-list-item>
         </v-list>
 
         <v-card-text v-else>Enter a new item to get started</v-card-text>

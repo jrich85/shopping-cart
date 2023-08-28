@@ -1,7 +1,8 @@
 <template>
-    <v-list>
+    <v-list class="shopping-lists">
         <v-list-item
             v-for="list in lists"
+            class="shopping-list"
             :key="list.id"
             :title="list.name"
             :subtitle="`created ${list.created_at}`"
