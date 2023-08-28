@@ -12,23 +12,33 @@
                 </v-row>
             </v-container>
         </v-card-title>
-        <v-list v-if="listItems.length">
-            <v-list-item
-                v-for="(item, index) in listItems"
-                :key="item.id"
-                :title="item.name"
-                :subtitle="index"
-            >
-                <template v-slot:append>
-                    <delete-list-item
-                        :name="item.name"
-                        :itemId="item.id"
-                        :listId="list.value.id"
-                        v-on:deletedItem="listItems.splice(index, 1)"
-                    />
-                </template>
-            </v-list-item>
-        </v-list>
+
+        <draggable
+            v-if="listItems.length"
+            v-model="listItems"
+            v-on:updated="(event) => console.log(event)"
+            @start="drag = true"
+            @end="drag = false"
+            v-on:change="reorder"
+            item-key="id"
+        >
+            <template #item="{ element }">
+                <v-container>
+                    <v-row>
+                        <v-col cols="1"> <menu-icon></menu-icon> </v-col>
+                        <v-col>{{ element?.name ?? "" }}</v-col>
+                        <v-col cols="1">
+                            <delete-list-item
+                                :name="element?.name ?? ''"
+                                :itemId="element?.id ?? ''"
+                                :listId="list.value.id"
+                                v-on:deletedItem="listItems.splice(index, 1)"
+                            />
+                        </v-col>
+                    </v-row>
+                </v-container>
+            </template>
+        </draggable>
 
         <v-card-text v-else>Enter a new item to get started</v-card-text>
 
@@ -49,12 +59,14 @@
 
 <script setup>
 import api from "../api/api";
+import draggable from "vuedraggable";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import DeleteListItem from "./DeleteListItem.vue";
 const route = useRoute();
 const router = useRouter();
 
+const drag = ref(false);
 const newItem = ref("");
 const newItemErrors = reactive([]);
 
@@ -76,10 +88,35 @@ const getList = () => {
 
 const getListItems = () => {
     api.getListItems(route.params.id).then((apiListItems) => {
-        apiListItems.data.forEach((item) => {
-            if (listItems) listItems.push(item);
-        });
+        listItems.length = 0;
+        apiListItems.data
+            .sort((a, b) => {
+                return a.order < b.order;
+            })
+            .forEach((item) => {
+                if (listItems) listItems.push({ ...item });
+            });
     });
+};
+
+const reorder = (event) => {
+    console.log(event);
+
+    const element = event.moved.element;
+    const oldIndex = event.moved.oldIndex;
+    let newIndex = event.moved.newIndex;
+
+    const newOrder = [];
+
+    console.log(element, oldIndex, newIndex);
+
+    listItems.splice(oldIndex, 1);
+    listItems.splice(newIndex, 0, element);
+
+    api.reorder(
+        list.value.id,
+        listItems.map((item) => item.id)
+    ).then(() => getListItems());
 };
 
 const addNewItem = () => {

@@ -94,6 +94,27 @@ const api = {
             };
         }
     },
+    reorder: async(listId, items) => {
+        try {
+            const newItem = await window.axios.put(
+                `api/grocery-list/${listId}/items`,
+                {
+                    id: listId,
+                    order: items,
+                }
+            );
+
+            return true;
+        } catch (error) {
+
+            const messages = error.response.data.errors;
+
+            return {
+                errors: messages,
+            };
+        }
+
+    }
 };
 
 export default api;

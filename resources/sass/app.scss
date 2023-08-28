@@ -48,3 +48,9 @@
 .delete-modal {
     max-width: $modal-width;
 }
+
+.shopping-list-item {
+    .v-list-item__content{
+        padding-left:$spacer;
+    }
+}

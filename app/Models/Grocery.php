@@ -41,6 +41,7 @@ class Grocery extends BaseModel
     protected $fillable = [
         'name',
         'grocery_list_id',
+        'order',
     ];
 
     public function groceryList(): BelongsTo

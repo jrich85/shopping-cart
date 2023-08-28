@@ -29,7 +29,9 @@ class AddGroceryToListRequest extends FormRequest
             'name' => [
                 'bail',
                 'required',
-                Rule::unique('groceries', 'name')->where('grocery_list_id', $listId),
+                Rule::unique('groceries', 'name')
+                    ->whereNull('deleted_at')
+                    ->where('grocery_list_id', $listId),
             ],
             'groceryListId' => 'exists:grocery_lists,id',
         ];
