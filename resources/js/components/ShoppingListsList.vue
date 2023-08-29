@@ -5,7 +5,7 @@
             class="shopping-list"
             :key="list.id"
             :title="list.name"
-            :subtitle="`created ${list.created_at}`"
+            :subtitle="dateFormat(list.created_at)"
             @click="$router.push(`/lists/${list.id}`)"
         >
             <template v-slot:append>
@@ -21,5 +21,6 @@
 </template>
 
 <script setup>
+import { dateFormat } from '../utils/helpers';
 const props = defineProps(["lists"]);
 </script>

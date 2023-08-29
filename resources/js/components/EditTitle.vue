@@ -71,11 +71,8 @@ const saveNewTitle = () => {
     } else if (props.type === "list-item") {
         api.updateListItem(props.id, props.listId, newTitle.value)
             .then((data) => {
-                console.log(data);
                 if (data.errors) {
                     const errorToShow = data.errors.name;
-                    console.log(errorToShow);
-                    return;
                     Object.keys(errorToShow).forEach((key) =>
                         errors.push(errorToShow[key])
                     );

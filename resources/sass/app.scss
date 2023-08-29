@@ -24,6 +24,11 @@
         margin-bottom: $spacer * 2;
     }
 }
+
+body {
+    background: $black;
+}
+
 .application {
     margin: 0;
     padding: 0;

@@ -8,8 +8,8 @@ import "./bootstrap";
 import { createApp } from "vue";
 import * as VueRouter from "vue-router";
 import App from "./views/app.vue";
-import ShoppingLists from "./components/ShoppingLists.vue";
-import ShoppingList from "./components/ShoppingList.vue";
+import ShoppingLists from "./views/ShoppingLists.vue";
+import ShoppingList from "./views/ShoppingList.vue";
 
 // Vuetify
 import "vuetify/styles";
@@ -23,8 +23,10 @@ const vuetify = createVuetify({
 });
 
 const routes = [
-    { path: '/lists', component: ShoppingLists },
-    { path: '/lists/:id', component: ShoppingList },
+    { path: '/lists', component: ShoppingLists, },
+    { path: '/lists/:id', component: ShoppingList, },
+    { path: '/:pathMatch(.*)*', redirect: '/lists', },
+
   ]
 
 const router = VueRouter.createRouter({
@@ -32,8 +34,6 @@ const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
     routes, // short for `routes: routes`
 });
-
-router.push('/lists');
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin

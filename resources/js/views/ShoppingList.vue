@@ -9,9 +9,16 @@
             <v-container class="no-gutters">
                 <v-row justify="space-between" :align="'center'" no-gutters>
                     <v-col>
-                        {{ list.value.name }}
+                        <edit-title
+                            :title="list.value.name"
+                            type="list"
+                            :id="list.value.id"
+                            v-on:newTitle="
+                                (newTitle) => (list.value.name = newTitle)
+                            "
+                        />
                     </v-col>
-                    <v-spacer/>
+                    <v-spacer />
                     <v-col cols="1" align-self="end">
                         <v-btn
                             class="btn-close"
@@ -62,7 +69,7 @@
 
         <v-card-text v-else>Enter a new item to get started</v-card-text>
 
-        <v-card-text>Created: {{ list.value.created_at }}</v-card-text>
+        <v-card-text>Created: {{ dateFormat(list.value.created_at) }}</v-card-text>
 
         <v-card-actions>
             <v-text-field
@@ -80,10 +87,11 @@
 <script setup>
 import api from "../api/api";
 import draggable from "vuedraggable";
+import { dateFormat } from '../utils/helpers';
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import DeleteListItem from "./DeleteListItem.vue";
-import EditTitle from "./EditTitle.vue";
+import DeleteListItem from "../components/DeleteListItem.vue";
+import EditTitle from "../components/EditTitle.vue";
 
 const route = useRoute();
 const router = useRouter();
