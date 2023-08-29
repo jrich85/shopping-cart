@@ -1,11 +1,14 @@
 <template>
     {{ title }}
-    <v-btn class="btn-edit" size="small" flat :rounded="0" @click="open = true"><edit-icon /></v-btn>
+    <v-btn class="btn-edit" size="small" flat :rounded="0" @click="open = true">
+        <edit-icon />
+    </v-btn>
     <v-dialog v-model="open" class="edit-title-modal">
         <v-card flat :rounded="0">
             <v-card-title class="branded-title">Edit Title</v-card-title>
             <v-card-text>
                 <v-text-field
+                    variant="underlined"
                     v-model="newTitle"
                     label="title"
                     :error-messages="errors"

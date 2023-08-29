@@ -69,17 +69,30 @@
 
         <v-card-text v-else>Enter a new item to get started</v-card-text>
 
-        <v-card-text>Created: {{ dateFormat(list.value.created_at) }}</v-card-text>
+        <v-card-text>
+            Created: {{ dateFormat(list.value.created_at) }}
+        </v-card-text>
 
         <v-card-actions>
-            <v-text-field
-                label="Enter an item"
-                v-model="newItem"
-                v-on:keyup.enter="addNewItem"
-                :error-messages="newItemErrors"
-                hint="Must be a unique item"
-            />
-            <v-btn @click="addNewItem">Add Item</v-btn>
+            <v-container>
+                <v-row no-gutters align="center">
+                    <v-col cols="11">
+                        <v-text-field
+                            variant="underlined"
+                            label="Enter an item"
+                            v-model="newItem"
+                            v-on:keyup.enter="addNewItem"
+                            :error-messages="newItemErrors"
+                            hint="Must be a unique item"
+                        />
+                    </v-col>
+                    <v-col cols="1">
+                        <v-btn @click="addNewItem">
+                            <save-icon></save-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
         </v-card-actions>
     </v-card>
 </template>
@@ -87,11 +100,12 @@
 <script setup>
 import api from "../api/api";
 import draggable from "vuedraggable";
-import { dateFormat } from '../utils/helpers';
+import { dateFormat } from "../utils/helpers";
 import { onMounted, reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import DeleteListItem from "../components/DeleteListItem.vue";
 import EditTitle from "../components/EditTitle.vue";
+import SaveIcon from "../components/SaveIcon.vue";
 
 const route = useRoute();
 const router = useRouter();

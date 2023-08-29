@@ -8,15 +8,26 @@
             </v-card-text>
 
             <v-card-actions>
-                <v-text-field
-                    label="Give your new list a title"
-                    v-model="newListTitle"
-                    v-on:keyup.enter="newList"
-                    :disabled="disableNewList"
-                    :error-messages="newListErrors"
-                    hint="Must be a unique title"
-                />
-                <v-btn @click="newList">Create New List</v-btn>
+                <v-container>
+                    <v-row no-gutters align="center">
+                        <v-col cols="11">
+                            <v-text-field
+                                variant="underlined"
+                                label="Give your new list a title"
+                                v-model="newListTitle"
+                                v-on:keyup.enter="newList"
+                                :disabled="disableNewList"
+                                :error-messages="newListErrors"
+                                hint="Must be a unique title"
+                            />
+                        </v-col>
+                        <v-col cols="1">
+                            <v-btn @click="newList">
+                                <save-icon></save-icon>
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-container>
             </v-card-actions>
         </v-card>
     </div>
@@ -32,6 +43,7 @@
 import api from "../api/api";
 import { computed, onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
+import SaveIcon from "../components/SaveIcon.vue";
 
 onMounted(() => {
     getLists();
