@@ -150,15 +150,11 @@ const getListItems = () => {
 };
 
 const reorder = (event) => {
-    console.log(event);
-
     const element = event.moved.element;
     const oldIndex = event.moved.oldIndex;
     let newIndex = event.moved.newIndex;
 
     const newOrder = [];
-
-    console.log(element, oldIndex, newIndex);
 
     const listIdsOrder = [];
     if (newIndex === 0) {

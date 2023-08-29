@@ -59,7 +59,6 @@ const saveNewTitle = () => {
     if (props.type === "list") {
         api.updateList(props.id, newTitle.value)
             .then((data) => {
-                console.log(data);
                 if (data.errors) {
                     const errorToShow = data.errors.name;
                     Object.keys(errorToShow).forEach((key) =>
