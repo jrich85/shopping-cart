@@ -4,7 +4,8 @@
             <v-card-title class="branded-title"> Shopping Lists </v-card-title>
 
             <v-card-text>
-                <shopping-lists-list :lists="lists" />
+                <shopping-lists-list v-if="lists.length" :lists="lists" />
+                <span v-else>Get started by entering a title for your first list.</span>
             </v-card-text>
 
             <v-card-actions>

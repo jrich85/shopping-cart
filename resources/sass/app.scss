@@ -20,9 +20,6 @@
     max-width: $modal-width;
     margin: ($spacer * 2) auto;
 
-    .branded-title {
-        margin-bottom: $spacer * 2;
-    }
 }
 
 body {
@@ -59,6 +56,7 @@ body {
     color: $black;
     border-bottom: 0.5rem $white solid !important;
     outline: 0.75rem $black solid !important;
+    margin-bottom: $spacer * 2;
 }
 
 .shopping-lists {
@@ -68,18 +66,10 @@ body {
 
 .edit-title-modal {
     max-width: $modal-width;
-
-    .branded-title {
-        margin-bottom: $spacer * 2;
-    }
 }
 
 .delete-modal {
     max-width: $modal-width;
-
-    .branded-title {
-        margin-bottom: $spacer * 2;
-    }
 }
 
 .shopping-list-item {
