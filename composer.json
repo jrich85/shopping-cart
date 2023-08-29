@@ -36,7 +36,10 @@
     },
     "scripts": {
         "artisan": [
-            "docker exec -it penguins-fse-interview-project-penguins.test-1 php artisan"
+            "docker exec -it penguins-fse-test-penguins.test-1 php artisan"
+        ],
+        "tests": [
+            "docker exec -it penguins-fse-test-penguins.test-1 php /var/www/html/vendor/phpunit/phpunit/phpunit --configuration /var/www/html/phpunit.xml --teamcity"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
