@@ -33,9 +33,8 @@
         </v-card-title>
 
         <draggable
-            v-if="listItems.length"
+            v-if="!!listItems"
             v-model="listItems"
-            v-on:updated="(event) => console.log(event)"
             @start="drag = true"
             @end="drag = false"
             v-on:change="reorder"
@@ -161,13 +160,37 @@ const reorder = (event) => {
 
     console.log(element, oldIndex, newIndex);
 
-    listItems.splice(oldIndex, 1);
-    listItems.splice(newIndex, 0, element);
+    const listIdsOrder = [];
+    if (newIndex === 0) {
+        listIdsOrder.push(element.id);
+        listItems.forEach((listItem) => {
+            if (listItem.id !== element.id) {
+                listIdsOrder.push(listItem.id);
+            }
+        })
+    } else {
+        listItems.forEach((listItem, index) => {
+            if (index === oldIndex) {
+                return;
+            }
+            listIdsOrder.push(listItem.id);
+            if (index === newIndex) {
+                listIdsOrder.push(element.id);
+                return;
+            }
+        });
+        if (!listIdsOrder.includes(element.id)) {
+            listIdsOrder.push(element.id);
+        }
+    }
 
-    api.reorder(
-        list.value.id,
-        listItems.map((item) => item.id)
-    ).then(() => getListItems());
+    api.reorder(list.value.id, listIdsOrder)
+        .then((reorderedList) => {
+            listItems.forEach((listItem, index) => {
+                listItem.value = { ...reorderedList[index] };
+            });
+        })
+        .then(() => getListItems());
 };
 
 const addNewItem = () => {

@@ -4,8 +4,11 @@
 
 ## Prerequisites
 
-* php 8.2
-* composer
+The backend is php with a standard laravel install and a mysql database, and the frontend has been built with vue.js.
+Current versions and tools of the underlying structure.
+
+* php ^8.2
+* composer 2.5.8
 * npm ^9.8
 * node ^18.16
 * docker ^24.05

@@ -71,6 +71,6 @@ class GroceryListRepository implements GroceryListRepositoryContract
                 ->update(['order' => $order]);
         }
 
-        return $list->fresh()->groceries;
+        return $list->fresh()->groceries->sortBy('order');
     }
 }
