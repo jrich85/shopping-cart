@@ -1,6 +1,8 @@
-# Pittsburgh Penguins FSE Interview Coding Exercise - Shopping List
+# FSE Coding Exercise - Shopping List
 
-<img src="https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/5.svg" width="200" style="margin:0 auto;"  alt="Pittsburgh Penguins Logo"/>
+A shopping list app, with a Pittsburgh Penguins theme.
+
+<img src="public/images/Pittsburgh-Penguins-logo.png" width="200" style="margin:0 auto;"  alt="Pittsburgh Penguins Logo"/>
 
 ## Prerequisites
 
@@ -31,10 +33,11 @@ Build the backend, and start the docker containers in the background.
 $ ./vendor/bin/sail up --build -d
 ```
 
-Connect to the container and create the new database on your mysql server with the database tools of your choice:
+Upon the first build, the database will be created for you. If you would like to run the tests with the test database,
+connect to the container with your database tool with the credentials used in the `.env` file, and run the following SQL
+commands:
 
 ```sql
-CREATE DATABASE penguins_fse_interview_project; --application database
 CREATE DATABASE penguins_fse_interview_project_test; --test database
 GRANT ALL PRIVILEGES ON penguins_fse_interview_project_test.* TO 'sail'@'%'; -- so tests can be run by sail
 ```

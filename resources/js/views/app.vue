@@ -3,7 +3,7 @@
         <div class="application">
             <v-toolbar
                 class="app-bar"
-                title="Pittsburgh Penguins FSE Interview Coding Exercise - Shopping Lists"
+                title="FSE Coding Exercise - Shopping Lists"
             />
             <router-view></router-view>
         </div>
