@@ -38,8 +38,8 @@ connect to the container with your database tool with the credentials used in th
 commands:
 
 ```sql
-CREATE DATABASE penguins_fse_interview_project_test; --test database
-GRANT ALL PRIVILEGES ON penguins_fse_interview_project_test.* TO 'sail'@'%'; -- so tests can be run by sail
+CREATE DATABASE fse_shopping_cart_project_test; --test database
+GRANT ALL PRIVILEGES ON fse_shopping_cart_project_test.* TO 'sail'@'%'; -- so tests can be run by sail
 ```
 
 Run the migrations on the container, through the custom composer command*:
